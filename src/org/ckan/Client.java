@@ -81,6 +81,13 @@ public final class Client {
             throws CKANException {
         String returned_json = this._connection.Post("/api/action/package_show",
                                                      "{\"id\":\"" + name + "\"}" );
+        
+        // http://docs.ckan.org/en/latest/ckan.logic.action.get.html#ckan.logic.action.get.package_show
+        // + 
+        // http://docs.ckan.org/en/latest/api.html#get-able-api-functions
+        // ==>
+        // http://datahub.io/api/3/action/package_show?id=farmers-markets-geographic-data-united-states
+        
         Dataset.Response r = LoadClass( Dataset.Response.class, returned_json);
         if ( ! r.success ) {
             HandleError( returned_json, "getDataset");
