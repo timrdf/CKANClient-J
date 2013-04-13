@@ -15,8 +15,15 @@ public class Extra {
     public String getKey() { return key; }
     public void setKey(String k) { key = k; }
 
-    public String getValue() { return value; }
+    public String getValue() { 
+    	return trim(value); // Returned string in quotes.
+    }
+    
     public void setValue(String v) { value = v; }
+    
+	private String trim(String string) {
+		return string != null ? string.replaceAll("^\"", "").replaceAll("\"$", "") : string;
+	}
 
     public Extra() {}
 
