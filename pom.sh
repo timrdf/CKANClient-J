@@ -1,3 +1,5 @@
+#3> <> prov:specializationOf <https://github.com/timrdf/CKANClient-J/blob/master/pom.sh> .
+#
 # Put the dependencies into local .m2 repository, so that they are available for other local projects that need JCKANCLient
 
 ant dist
