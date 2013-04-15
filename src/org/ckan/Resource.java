@@ -1,7 +1,5 @@
 package org.ckan;
 
-import java.net.URL;
-
 /**
  * Represents a single resource within a Dataset
  *
@@ -191,11 +189,4 @@ recent: 3
     public String getCache_url() {
         return cache_url;
     }
-
 }
-
-
-
-
-
-

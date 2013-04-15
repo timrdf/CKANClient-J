@@ -13,7 +13,12 @@ import java.util.ArrayList;
  */
 public class CKANException extends Exception {
 
-    private ArrayList<String> messages = new ArrayList<String>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8837483230448936862L;
+	
+	private ArrayList<String> messages = new ArrayList<String>();
 
     public CKANException( String message ) {
         messages.add( message );

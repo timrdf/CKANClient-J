@@ -1,6 +1,5 @@
 package org.ckan;
 
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -12,11 +11,13 @@ import java.util.List;
  */
 public class Group {
 
+	/**
+	 * For gson
+	 */
     public class Response {
         public boolean success;
         public Group result;
     }
-
 
     private String id;
     private String name;
@@ -123,11 +124,4 @@ public class Group {
     public String toString() {
         return "<Group: " + this.getName() + ", " + this.getTitle() + "  (" + this.getType()+ ")>";
     }
-
 }
-
-
-
-
-
-

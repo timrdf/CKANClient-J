@@ -1,6 +1,5 @@
 package org.ckan;
 
-import java.util.Date;
 
 /**
  * Represents a CKAN User
@@ -69,9 +68,3 @@ public class User {
     }
 
 }
-
-
-
-
-
-
