@@ -138,7 +138,7 @@ public final class Client {
          *                            "webstore_url": "", 
          *                            "position": 0, 
          *                            "revision_id": "692caeb1-704e-4a4a-9f91-773fbf250cf5", 
-         *                            "resource_type": ""}], 
+         *                            "resource_type": ""}, {}, {}, {}], 
          *             "tags": [{"vocabulary_id": null, 
          *                       "display_name": "klappstuhlclub", 
          *                       "name": "klappstuhlclub", 
@@ -212,6 +212,7 @@ public final class Client {
          *              "message": "Edited settings.", 
          *              "author": "timrdf", 
          *              "approved_timestamp": null}, 
+         *              
          *             {"id": "28abe894-2cf1-4eb6-bd93-b14e0292042b", 
          *              "timestamp": "2011-09-09T07:53:14.447832", 
          *              "message": "creation", 
@@ -228,7 +229,7 @@ public final class Client {
             //HandleError( returned_json, "getDataset");
         }
         
-        log.warn(" gsoned baby " + r.result.size());
+        log.warn(" gsoned " + r.result.size());
 
         return r.result;
     }
