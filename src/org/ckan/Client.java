@@ -85,7 +85,7 @@ public final class Client {
                                                      "{\"id\":\"" + name + "\"}" );
         
         if( returned_json != null ) {
-        	log.warn(name + " returned json length "+returned_json);
+        	log.warn(name + " returned json length "+returned_json.length());
         }else {
         	log.warn(name + " returned null json");
         }
@@ -200,7 +200,7 @@ public final class Client {
     	// e.g. http://datahub.io/api/3/action/package_revision_list?id=klappstuhlclub
         String returned_json = this._connection.Post("/api/action/package_revision_list",
         											 "{\"id\":\"" + datasetName + "\"}" );
-        log.warn("revisions: " + returned_json);
+        //log.warn("revisions: " + returned_json);
         
         /*
          * {"help": "Return a dataset (package)'s revisions as a list of dictionaries.\n\n    
@@ -229,7 +229,7 @@ public final class Client {
             //HandleError( returned_json, "getDataset");
         }
         
-        log.warn(" gsoned " + r.result.size());
+        //log.warn(" gsoned " + r.result.size());
 
         return r.result;
     }
@@ -280,6 +280,28 @@ public final class Client {
     }
 
 
+    /**
+     * 
+     * @param dataset
+     * @return
+     * @throws CKANException
+     */
+    public Dataset updateDataset(Dataset dataset) throws CKANException {
+    	
+        Gson gson = new Gson();
+        String data = gson.toJson( dataset );
+        System.out.println( data );
+        String returned_json = this._connection.Post("/api/action/package_update", data);
+        
+        //System.out.println( returned_json );
+        Dataset.Response r = LoadClass( Dataset.Response.class, returned_json);
+        if ( ! r.success ) {
+            // This will always throw an exception
+            HandleError(returned_json, "updateDataset");
+        }
+        return r.result;
+    }
+    
     /**
     * Retrieves a group
     *
