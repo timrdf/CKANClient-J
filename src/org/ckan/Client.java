@@ -388,4 +388,26 @@ public final class Client {
         }
         return sr.result;
     }
+    
+    /**
+    * Uses the provided search term to find datasets on the server
+    *
+    * Takes the provided query and locates those datasets that match the query
+    *
+    * @param  query The search terms
+    * @returns A SearchResults object that contains a count and the objects
+    * @throws A CKANException if the request fails
+    */
+    public Dataset.SearchResults findDatasetsByTag(String tag) throws CKANException {
+
+        String returned_json = this._connection.Post("/api/action/package_search",
+                                                     "{\"tag\":\"" + tag +"\"}" );
+        
+        Dataset.SearchResponse sr = LoadClass( Dataset.SearchResponse.class, returned_json);
+        if ( ! sr.success ) {
+            // This will always throw an exception
+            HandleError(returned_json, "findDatasets");
+        }
+        return sr.result;
+    }
 }
