@@ -8,7 +8,9 @@ import java.net.URL;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.StringEntity;
@@ -39,25 +41,25 @@ public final class Connection {
     }
 
     public Connection( String host, int port ) {
-    	
-    	// Hack, since this.Post() does not follow redirects.
-    	// http://stackoverflow.com/questions/7546849/httpclient-redirect-for-newbies
-    	// http://stackoverflow.com/questions/5169468/handling-httpclient-redirects
-    	// http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/RedirectStrategy.html
-    	// http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/index.html?overview-summary.html
-    	if( "http://thedatahub.org".equals(host) ) {
-    		host = "http://datahub.io";
-    	}
-    	
-        this.m_host = host;
-        this.m_port = port;
 
-        try {
-            URL u = new URL( this.m_host + ":" + this.m_port + "/api");
-        } catch ( MalformedURLException mue ) {
-    		log.error("malformed URL");
-            log.error(mue);
-        }
+       // Hack, since this.Post() does not follow redirects.
+       // http://stackoverflow.com/questions/7546849/httpclient-redirect-for-newbies
+       // http://stackoverflow.com/questions/5169468/handling-httpclient-redirects
+       // http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/RedirectStrategy.html
+       // http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/index.html?overview-summary.html
+       if( "http://thedatahub.org".equals(host) ) {
+          host = "http://datahub.io";
+       }
+
+       this.m_host = host;
+       this.m_port = port;
+
+       try {
+          URL u = new URL( this.m_host + ":" + this.m_port + "/api");
+       } catch ( MalformedURLException mue ) {
+          log.error("malformed URL");
+          log.error(mue);
+       }
     }
 
     public void setApiKey( String key ) {
@@ -138,9 +140,12 @@ public final class Connection {
     		httpclient.getConnectionManager().shutdown();
     	}
 
+    	System.out.println("body: " + body);
     	return body;
     }
     
+
+
     private static boolean isSet(String string) {
     	return string != null && string.length() > 0;
     }
