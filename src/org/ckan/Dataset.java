@@ -35,6 +35,21 @@ public class Dataset {
         public List<Dataset> results;
     }
 
+
+    /**
+     * To suit v3 of the API, since v1 broke.
+     * curl -d '{"id":"lod"}' http://datahub.io:80/api/3/action/tag_show
+     */
+    public class SearchResponse3 {
+       public boolean        success;
+       public SearchResults3 result;
+    }
+    public class SearchResults3 {
+       public List<Dataset> packages;
+    }
+
+   
+
     private String id;
     private String name;
     private String title;

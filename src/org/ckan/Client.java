@@ -398,16 +398,94 @@ public final class Client {
     * @returns A SearchResults object that contains a count and the objects
     * @throws A CKANException if the request fails
     */
-    public Dataset.SearchResults findDatasetsByTag(String tag) throws CKANException {
+    public List<Dataset> findDatasetsByTag(String tag) throws CKANException {
 
-        String returned_json = this._connection.Post("/api/action/package_search",
-                                                     "{\"tag\":\"" + tag +"\"}" );
-        
-        Dataset.SearchResponse sr = LoadClass( Dataset.SearchResponse.class, returned_json);
+        // The following started erroring out "Invalid search parameters: ['tags']"
+        //String returned_json = this._connection.Post("/api/action/package_search",
+        //                                             "{\"tag\":\"" + tag +"\"}" );
+       
+        // based on http://docs.ckan.org/en/latest/api/index.html:
+        // curl -d '{"id":"lod"}' http://datahub.io:80/api/3/action/tag_show
+        String returned_json = this._connection.Post("/api/3/action/tag_show",
+                                                     "{\"id\":\"" + tag +"\"}" );
+        // {
+        //    "help":"Return the details of a tag and all its datasets.\n\n    
+        //             :param id: the name or id of the tag\n    
+        //             :type id: string\n\n    
+        //             :returns: the details of the tag, including a list of all of the tag's\n        datasets and their details\n    
+        //             :rtype: dictionary\n\n    ",
+        //    "success":true,
+        //    "result":{
+        //       "vocabulary_id":null,
+        //       "packages":[
+        //          {
+        //             "owner_org":"d0821303-befa-4808-a00f-4e1e073df26f",
+        //             "maintainer":"Alexei Bulazel",
+        //             "relationships_as_object":[
+        // 
+        //             ],
+        //             "private":false,
+        //             "maintainer_email":"",
+        //             "num_tags":34,
+        //             "id":"f6265e0f-960a-4c67-af0f-6fe2979647d5",
+        //             "metadata_created":"2013-09-03T16:26:33.581601",
+        //             "metadata_modified":"2013-12-21T19:19:50.266965",
+        //             "author":"Tetherless World Constellation, RPI",
+        //             "author_email":"",
+        //             "state":"active",
+        //             "version":null,
+        //             "license_id":"cc-zero",
+        //             "type":"dataset",
+        //             "resources":[
+        // ...
+        //             ],
+        //             "num_resources":33,
+        //             "tags":[
+        //                 ...
+        //             ],
+        //             "title":"Instance Hub (all)",
+        //             "tracking_summary":{
+        //                "total":0,
+        //                "recent":0
+        //             },
+        //             "groups":[
+        // 
+        //             ],
+        //             "relationships_as_subject":[
+        // 
+        //             ],
+        //             "revision_timestamp":"2013-10-10T23:59:13.438969",
+        //             "name":"twc-hub",
+        //             "isopen":true,
+        //             "url":null,
+        //             "notes":"Linked Data representations of common entities and concepts that occur in many datasets.",
+        //             "license_title":"Creative Commons CCZero",
+        //             "extras":[
+        // …
+        //             ],
+        //             "license_url":"http://www.opendefinition.org/licenses/cc-zero",
+        //             "organization":{
+        //                "description":"Datasets listed, created, or curated by RPI's Tetherless World Constellation research group ( http://tw.rpi.edu/ ) for any of its ongoing or historic projects.",
+        //                "created":"2013-01-02T13:28:36.671406",
+        //                "title":"Tetherless World Constellation",
+        //                "name":"tetherless-world-constellation",
+        //                "revision_timestamp":"2013-12-21T19:19:50.266965",
+        //                "is_organization":true,
+        //                "state":"active",
+        //                "image_url":"http://tw.rpi.edu/media/latest/TW_Logo_193w.png",
+        //                "revision_id":"8a71e8b1-26bd-4e7e-b250-386925316496",
+        //                "type":"organization",
+        //                "id":"d0821303-befa-4808-a00f-4e1e073df26f",
+        //                "approval_status":"approved"
+        //             },
+        //             "revision_id":"180b03bf-0544-4041-b2ad-5086810ffd9b"
+        //          },
+
+        Dataset.SearchResponse3 sr = LoadClass( Dataset.SearchResponse3.class, returned_json);
         if ( ! sr.success ) {
             // This will always throw an exception
             HandleError(returned_json, "findDatasets");
         }
-        return sr.result;
+        return sr.result.packages;
     }
 }
