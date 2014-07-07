@@ -20,7 +20,7 @@ public class Resource{
     private String cache_last_updated;
     private String package_id;
     private String webstore_last_updated;
-    private int size;
+    private long size;
     private int position;
     private String resource_type;
     private String last_modified;
@@ -118,11 +118,11 @@ recent: 3
         return webstore_last_updated;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
