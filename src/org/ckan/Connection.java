@@ -8,13 +8,12 @@ import java.net.URL;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
 import org.apache.log4j.Logger;
 
 /**
@@ -97,6 +96,10 @@ public final class Connection {
     	String body = "";
 
     	HttpClient httpclient = new DefaultHttpClient();
+    	// http://hc.apache.org/httpcomponents-core-ga/httpcore/apidocs/org/apache/http/params/CoreConnectionPNames.html#SO_TIMEOUT
+    	int MINUTE = 60000;
+    	httpclient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, 1 * MINUTE);
+    	httpclient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT,         3 * MINUTE);
     	
     	/*
     	 * Set an HTTP proxy if it is specified in system properties.
@@ -140,7 +143,7 @@ public final class Connection {
     		httpclient.getConnectionManager().shutdown();
     	}
 
-    	System.out.println("body: " + body);
+    	//System.out.println("body: " + body);
     	return body;
     }
     
