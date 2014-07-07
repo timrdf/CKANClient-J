@@ -16,7 +16,7 @@ public class Group {
 	 */
     public class Response {
         public boolean success;
-        public Group result;
+        public Group   result;
     }
 
     private String id;
@@ -28,7 +28,7 @@ public class Group {
     private String image_url;
     private String created;
     private String approval_status;
-    private List<Package> packages;
+    private List<Dataset> packages;
     private List<Extra> extras;
 
     public Group() {}
@@ -113,11 +113,11 @@ public class Group {
         return extras;
     }
 
-    public void setPackages(List<Package> packages) {
+    public void setPackages(List<Dataset> packages) {
         this.packages = packages;
     }
 
-    public List<Package> getPackages() {
+    public List<Dataset> getPackages() {
         return packages;
     }
 
