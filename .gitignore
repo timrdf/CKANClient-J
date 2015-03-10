@@ -1,3 +1,5 @@
+src/edu/rpi/tw/*
+.DS_Store
 *.class
 build/*
 dist/*
