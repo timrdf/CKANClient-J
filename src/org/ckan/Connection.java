@@ -100,6 +100,14 @@ public final class Connection {
     	int MINUTE = 60000;
     	httpclient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, 1 * MINUTE);
     	httpclient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT,         3 * MINUTE);
+    	/*TODO: move away from deprecated methods, towards the following:
+    	 * see http://hc.apache.org/httpcomponents-client-ga/tutorial/pdf/httpclient-tutorial.pdf
+    	 * 
+    	 *       RequestConfig requestConfig = RequestConfig.custom()
+                                                 .setSocketTimeout(SECOND)
+                                                 .setConnectTimeout(SECOND)
+                                                 .build();
+    	 */
     	
     	/*
     	 * Set an HTTP proxy if it is specified in system properties.
